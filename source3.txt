@@ -1,0 +1,7 @@
+! Orig source file name: test-arithmetic-expressions.txt
+! this is comment for this sample test code for arithmetic expressions!
+
+a + b
+c+d
+e-f
+g*n
