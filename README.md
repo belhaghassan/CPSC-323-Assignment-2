@@ -4,7 +4,7 @@ Nicholas Vuong,
 Thomas Lee
 CPSC 323-04
 
-CPSC 323 Assignment 1 Documentation
+CPSC 323 Assignment 2 Documentation
 
 Problem Statement
 	We must create a lexical analyzer for assignment 1. There is the option to build the entire lexer with a finite state machine or build our lexer using multiple finite state machines for identifiers, integers, and reals. A major component of our assignment will be to write a procedure/function “lexer()” that returns a token when it is needed. Our lexer function should return a record, one field for the token and another field that the actual value(lexeme) of the token will be recognized. The lexer should read the files containing the source code given by our professor to generate tokens and print the results to an output file.

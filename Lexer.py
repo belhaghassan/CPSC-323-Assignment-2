@@ -48,7 +48,7 @@ def FSM(token):
 
 #Lexer function takes in a list of strings to analyze 
 def lexer(listoftokens): 
-
+  
   # Traverses each token in the list of tokens to see if they match any  
   # any that are initialized in the lists - KEYWORDS, OPERATORS, SEPARATORS. 
   # Otherwise the token will be passed through a Finite State Machine to
