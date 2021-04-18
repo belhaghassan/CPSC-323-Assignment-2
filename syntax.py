@@ -1,4 +1,4 @@
-
+from collections import deque
 ############# COMMENTS #########################################################
 # GRAMMAR/SYNTAX - PRODUCTION RULES (FROM LECTURES)
 # Arithmetic expressions rules:
@@ -48,16 +48,49 @@
 # I  |  id  |      |      |      |     |     |     |     |
 #    -----------------------------------------------------
 
-# Table created Using Hashtable with key: value pairs
-E = {'id': {'T',"E'"}, '(': {'T',"E'"}}
-Ep = {'+': {'+','T',"E'"}, '-': {'-','T',"E'"}, ')': "EPS", '$': "EPS"}
-T = {'id': {'F',"T'"}, '(': {'-','T',"E'"}}
-Tp = {'+': "EPS", '-': "EPS", '*': {'*','F',"T'"}, '/': {'/','F','T'},')': "EPS", '$': "EPS"} 
-F = {'id': 'I', '(': {'(','E',')'}}
-I = {'id': 'I'}
+Rules {0: "E  --> TE'", 1: "E' --> +TE'", 2: "E' --> -TE'", 3: "E' --> EPS",
+        4: "T  --> FT'", 5: "T' --> *FT'", 6: "T' --> /FT'", 7: "T' --> EPS",
+        8: "F  --> ( E )", 9: "F --> I", 10: "I  --> id" }
+}
+T_ID = 0
+T_PLUS = 1
+T_MINUS = 2
+T_MUL = 3
+T_DIV = 4
+T_LPAR = 5
+T_RPAR = 6
+T_END = 7
 
-def syntaxAnalyzer(listoftokens)
+rulesTable = [
+  [['T',"E'"],    None      ,    None      ,    None      ,     None    ,  ['T',"E'"] , None, None ],
+  [   None   ,['+','T',"E'"],['-','T',"E'"],    None      ,     None    ,    None     ,"EPS","EPS" ],
+  [['F',"T'"],    None      ,    None      ,    None      ,     None    , ['F',"T'"]  , None, None ],
+  [   None   ,     "EPS"    ,    "EPS"     ,['*','F',"T'"],['/','F','T'],    None     ,"EPS", "EPS"],
+  [   'I'    ,     None     ,    None      ,    None      ,     None    ,['(','E',')'], None, None ],
+  [   "id"   ,     None     ,    None      ,    None      ,     None    ,    None     , None, None ] 
+]
+
+def syntaxAnalyzer(listoftokens):
   
+  Lexemes = listoftokens
+  Lexemes.append("$")
+  Stack = deque("$")
+  Stack.append('E')
+  lexIndex = 0
+  while not Stack:
+    t = Stack[-1]
+    i = Lemexe[lexIndex]
+    if t in listoftokens: 
+      if t == i:  
+        pop(t)
+        lexIndex += 1
+      else: "Error"
+    else:
+      TOS = Stack[-1] 
+      print(TOS)
+      print(TOS)
+      # if TOS in 
+  return True
 
 
 # <Statement> -> <Declarative>
@@ -93,7 +126,13 @@ def syntaxAnalyzer(listoftokens)
 
 
 
-
+# Table created Using Hashtable with key: value pairs
+# E = {'id': {'T',"E'"}, '(': {'T',"E'"}}
+# Ep = {'+': {'+','T',"E'"}, '-': {'-','T',"E'"}, ')': "EPS", '$': "EPS"}
+# T = {'id': {'F',"T'"}, '(': {'-','T',"E'"}}
+# Tp = {'+': "EPS", '-': "EPS", '*': {'*','F',"T'"}, '/': {'/','F','T'},')': "EPS", '$': "EPS"} 
+# F = {'id': 'I', '(': {'(','E',')'}}
+# I = {'id': 'I'}
 
 
 

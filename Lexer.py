@@ -48,32 +48,28 @@ def FSM(token):
 
 #Lexer function takes in a list of strings to analyze 
 def lexer(listoftokens): 
-  
+  lexList = []
   # Traverses each token in the list of tokens to see if they match any  
   # any that are initialized in the lists - KEYWORDS, OPERATORS, SEPARATORS. 
   # Otherwise the token will be passed through a Finite State Machine to
   # identify and validate it. 
   for token in listoftokens:
     if token in OPERATORS: 
-      return "OPERATOR"
+      print("Token: OPERATOR\t\t\t\t\tLexeme:", token)
     elif token in SEPARATORS: 
-      return "SEPARATOR"
+      print("Token: SEPARATOR\t\t\t\tLexeme:", token)
     elif token in KEYWORDS:
-      return "KEYWORD"
-    elif token == "$":
-      return "END"
+      print("Token: KEYWORD\t\t\t\t\tLexeme:", token)
     else: 
       state = FSM(token)
       if state == 2:                       # State 2 = IDENTIFIERS (ACCEPTING STATE)
-        token = "ID"
-        return token
+        print("Token: IDENTIFER\t\t\t\tLexeme:", token)
+        token = "id"
       elif state == 3:                     # State 3 = INTEGERS (ACCEPTING STATE)
-        token = "INT"
-        return token
+        print("Token: INTEGER\t\t\t\t\tLexeme:", token)
       elif state == 4:                     # State 4 = REAL NUMBERS (ACCEPTING STATE)
-        token = "REAL"
-        return token
+        print("Token: REAL\t\t\t\t\t\tLexeme:", token)
       else:
-        token = "ERR"
-        return token
-  return
+        print("Token: INVALID\t\t\t\t\tLexeme:", token)
+    lexList.append(token)
+  return lexList

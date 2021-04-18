@@ -1,0 +1,14 @@
+Accessing file source1.txt
+
+TOKENS					 Lexemes
+
+Token: IDENTIFER				Lexeme: a
+Token: OPERATOR					Lexeme: +
+Token: IDENTIFER				Lexeme: b
+['id', '+', 'id', '$']
+deque(['$', 'E'])
+Token: IDENTIFER				Lexeme: b
+Token: OPERATOR					Lexeme: -
+Token: IDENTIFER				Lexeme: a
+['id', '-', 'id', '$']
+deque(['$', 'E'])
