@@ -49,56 +49,103 @@ from collections import deque
 #    -----------------------------------------------------
 
 Rules = {
-    0: "E  --> TE'", 1: "E' --> +TE'", 2: "E' --> -TE'", 3: "E' --> EPS",
-    4: "T  --> FT'", 5: "T' --> *FT'", 6: "T' --> /FT'", 7: "T' --> EPS",
-    8: "F  --> ( E )", 9: "F --> I", 10: "I  --> id" 
+    0: "E  --> TE'", 
+    1: "E' --> +TE'", 
+    2: "E' --> -TE'", 
+    3: "E' --> EPS",
+    4: "T  --> FT'", 
+    5: "T' --> *FT'", 
+    6: "T' --> /FT'", 
+    7: "T' --> EPS",
+    8: "F  --> (E)", 
+    9: "F --> I", 
+    10: "I  --> id" 
 }
 
+def symbolIndex(lexemes,nTerminals): 
+  
+  stackSwitcher = {"E": 0,"E'": 1,"T": 2,"T'": 3,"F": 4,"I": 5}
+  lexSwitcher = {"id": 0,"+": 1,"-":2,"*": 3,"/": 4,"(": 5,")": 6,"$": 7}
 
-T_ID = 0
-T_PLUS = 1
-T_MINUS = 2
-T_MUL = 3
-T_DIV = 4
-T_LPAR = 5
-T_RPAR = 6
-T_END = 7
+  # Returns index of passed arguments in table
+  return stackSwitcher.get(Lexemes), lexSwitcher.get(nTerminals)
+
+
 
 rulesTable = [
-  [   'id'   ,      '+'     ,     '-'      ,    '*'       ,      '/'    ,     '('     ,  ')',  '$' ],
-  [['T',"E'"],    None      ,    None      ,    None      ,     None    , ['T',"E'"]  , None, None ],
-  [   None   ,['+','T',"E'"],['-','T',"E'"],    None      ,     None    ,    None     ,"EPS","EPS" ],
-  [['F',"T'"],    None      ,    None      ,    None      ,     None    , ['F',"T'"]  , None, None ],
-  [   None   ,     "EPS"    ,    "EPS"     ,['*','F',"T'"],['/','F','T'],    None     ,"EPS", "EPS"],
-  [   'I'    ,     None     ,    None      ,    None      ,     None    ,['(','E',')'], None, None ],
-  [   "id"   ,     None     ,    None      ,    None      ,     None    ,    None     , None, None ] 
+  [   "TOS"  ,   'id'   ,      '+'     ,     '-'      ,    '*'       ,      '/'    ,     '('     ,  ')',  '$' ],
+  [    "E"   ,['T',"E'"],    None      ,    None      ,    None      ,     None    , ['T',"E'"]  , None, None ],
+  [    "E'"  ,   None   ,['+','T',"E'"],['-','T',"E'"],    None      ,     None    ,    None     ,"EPS","EPS" ],
+  [    "T"   ,['F',"T'"],    None      ,    None      ,    None      ,     None    , ['F',"T'"]  , None, None ],
+  [    "T'"  ,   None   ,     "EPS"    ,    "EPS"     ,['*','F',"T'"],['/','F','T'],    None     ,"EPS", "EPS"],
+  [    "F"   ,   'I'    ,     None     ,    None      ,    None      ,     None    ,['(','E',')'], None, None ],
+  [    "I"   ,   "id"   ,     None     ,    None      ,    None      ,     None    ,    None     , None, None ] 
 ]
 
 def syntaxAnalyzer(listoftokens):
   
   Lexemes = listoftokens
   Lexemes.append("$")
+
   Stack = deque("$")
   Stack.append('E')
   lexIndex = 0
+
+  ####### TEST - checking contents ###########################################
+  print("\nChecking contents of rulesTable: ")
+  
+  for item in rulesTable:
+    print(item)
+  
+  print("\nChecking contents of Stack[-1]:")
+  print(Stack[-1])
+
+  print("\nChecking contents of Lexemes: ")
+  print(Lexemes[lexIndex])
+
+  t = Stack[-1]
+  i = Lexemes[lexIndex]
+  print("\nChecking contents of rulesTable at [t, i]: ")
+  #print(rulesTable[t,i])
+  print(rulesTable[0], [1])
+
+  test = "id"
+
+  if test == (rulesTable[0][1]): #[0][1] == 'id'; [0][2] == '+'; etc)
+    print("match")
+  else:
+    pass
+
+  for item in rulesTable[0]:
+    print(item)
+  ############################################################################
+
   while not Stack:
     t = Stack[-1]
-    i = Lemexe[lexIndex]
+    i = Lexemes[lexIndex]
     if t in listoftokens: 
       if t == i:  
         pop(t)
         lexIndex += 1
       else: "Error"
     else:
-      if rulesTable[t, i] == None:
+      t_index, i_index = symbolIndex(t,i)
+      print("\nprint table values")
+      print(rulesTable[t_index, i_index])
+      if not rulesTable[t_index, i_index]:       # needs to be if not None but only works without "not"
         Stack.pop()
-        tableVal = rulesTable[t, i]
+        tableVal = rulesTable[t_index, i_index]   # Need to make t and i indexes that match table 
+        print("\nprint table values")
+        print(rulesTable[t_index, i_index])
         tableVal.reverse()
+        print("\nprint table values in reverse")
+        print(tableVal)
         for i in tableVal:
-          Stack.append(i)
+          Stack.append(i)       # Only way Stack changes from intial 'E'
       else:
         return "Error"
   return 
+
 
 
 # <Statement> -> <Declarative>

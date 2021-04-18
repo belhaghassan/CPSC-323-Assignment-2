@@ -2,10 +2,37 @@ Accessing file source1.txt
 
 TOKENS					 Lexemes
 
+Token: IDENTIFER				Lexeme: x
+Token: OPERATOR					Lexeme: =
 Token: IDENTIFER				Lexeme: a
 Token: OPERATOR					Lexeme: +
 Token: IDENTIFER				Lexeme: b
-Token: IDENTIFER				Lexeme: b
-Token: OPERATOR					Lexeme: -
-Token: IDENTIFER				Lexeme: a
+Token: SEPARATOR				Lexeme: ;
 
+Checking contents of rulesTable: 
+['TOS', 'id', '+', '-', '*', '/', '(', ')', '$']
+['E', ['T', "E'"], None, None, None, None, ['T', "E'"], None, None]
+["E'", None, ['+', 'T', "E'"], ['-', 'T', "E'"], None, None, None, 'EPS', 'EPS']
+['T', ['F', "T'"], None, None, None, None, ['F', "T'"], None, None]
+["T'", None, 'EPS', 'EPS', ['*', 'F', "T'"], ['/', 'F', 'T'], None, 'EPS', 'EPS']
+['F', 'I', None, None, None, None, ['(', 'E', ')'], None, None]
+['I', 'id', None, None, None, None, None, None, None]
+
+Checking contents of Stack[-1]:
+E
+
+Checking contents of Lexemes: 
+id
+
+Checking contents of rulesTable at [t, i]: 
+['TOS', 'id', '+', '-', '*', '/', '(', ')', '$'] [1]
+match
+TOS
+id
++
+-
+*
+/
+(
+)
+$

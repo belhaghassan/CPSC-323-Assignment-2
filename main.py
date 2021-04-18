@@ -1,6 +1,5 @@
 # Assignment #2
 
-
 import Lexer as lexer
 import syntax as syntax
 import functions as func
