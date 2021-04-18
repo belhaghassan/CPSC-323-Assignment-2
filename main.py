@@ -40,8 +40,11 @@ def main():
                 lexemes = lexer.lexer(tokens)
 
                 Syntax = syntax.syntaxAnalyzer(lexemes)
+
+                if not Syntax: 
+                  return "Syntax Error"
                 
-        return
+        return  
   print("Invalid source file.")
 
 if __name__ == "__main__":

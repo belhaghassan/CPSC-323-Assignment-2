@@ -48,10 +48,13 @@ from collections import deque
 # I  |  id  |      |      |      |     |     |     |     |
 #    -----------------------------------------------------
 
-Rules {0: "E  --> TE'", 1: "E' --> +TE'", 2: "E' --> -TE'", 3: "E' --> EPS",
-        4: "T  --> FT'", 5: "T' --> *FT'", 6: "T' --> /FT'", 7: "T' --> EPS",
-        8: "F  --> ( E )", 9: "F --> I", 10: "I  --> id" }
+Rules = {
+    0: "E  --> TE'", 1: "E' --> +TE'", 2: "E' --> -TE'", 3: "E' --> EPS",
+    4: "T  --> FT'", 5: "T' --> *FT'", 6: "T' --> /FT'", 7: "T' --> EPS",
+    8: "F  --> ( E )", 9: "F --> I", 10: "I  --> id" 
 }
+
+
 T_ID = 0
 T_PLUS = 1
 T_MINUS = 2
@@ -62,7 +65,8 @@ T_RPAR = 6
 T_END = 7
 
 rulesTable = [
-  [['T',"E'"],    None      ,    None      ,    None      ,     None    ,  ['T',"E'"] , None, None ],
+  [   'id'   ,      '+'     ,     '-'      ,    '*'       ,      '/'    ,     '('     ,  ')',  '$' ],
+  [['T',"E'"],    None      ,    None      ,    None      ,     None    , ['T',"E'"]  , None, None ],
   [   None   ,['+','T',"E'"],['-','T',"E'"],    None      ,     None    ,    None     ,"EPS","EPS" ],
   [['F',"T'"],    None      ,    None      ,    None      ,     None    , ['F',"T'"]  , None, None ],
   [   None   ,     "EPS"    ,    "EPS"     ,['*','F',"T'"],['/','F','T'],    None     ,"EPS", "EPS"],
@@ -86,11 +90,15 @@ def syntaxAnalyzer(listoftokens):
         lexIndex += 1
       else: "Error"
     else:
-      TOS = Stack[-1] 
-      print(TOS)
-      print(TOS)
-      # if TOS in 
-  return True
+      if rulesTable[t, i] == None:
+        Stack.pop()
+        tableVal = rulesTable[t, i]
+        tableVal.reverse()
+        for i in tableVal:
+          Stack.append(i)
+      else:
+        return "Error"
+  return 
 
 
 # <Statement> -> <Declarative>
